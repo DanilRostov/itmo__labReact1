@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <title>ReactLearn2</title>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>  <!-- подключить транспайлер -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.0.0/umd/react.production.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.0.0/umd/react-dom.production.min.js"></script>
+ </head>
+ <body>
+    <div class="cont"></div>
+    <script type="text/babel">
+      const strGET = window.location.search.replace( '?', '');
+
+			const StarString = ({ length, text }) => <span>{text}{ Array.from({length}, (v, i) => ++i).map(() =>'⭐️') }</span>;
+
+			class Stars extends React.Component {
+				render() {
+					return <span>Строка из звёзд, из GET запроса через класс: { Array.from({length: this.props.length}, (v, i) => ++i).map(() =>'⭐️') }</span>
+				}
+			}
+
+			class MyDiv extends React.Component {
+				render () {
+					return <div>{this.props.hello} {this.props.name}. Твой рейтинг: <StarString text="" length={this.props.rating} /></div>
+				}
+			}
+
+      ReactDOM.render(
+				<div>
+					<Stars length={strGET} />
+					<div><StarString text="Строка из звёзд, из GET запроса не через класс" length={strGET} /></div>
+					<MyDiv hello="Привет" name="Данил" rating="5" />
+					<MyDiv hello="Здорова" name="Никита" rating="2" />
+					<MyDiv hello="Здравствуйте" name="Анна Васильевна" rating="8" />
+				</div>,
+        document.querySelector('.cont')
+      );
+
+    </script>
+    <hr>
+
+ </body>
+</html>
